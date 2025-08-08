@@ -1,0 +1,61 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="300" fill="black"/>
+  
+  <!-- Holy Family Illustration -->
+  <g transform="translate(200, 120)">
+    <!-- Mary (left) -->
+    <g transform="translate(-60, 0)">
+      <!-- Halo -->
+      <circle cx="0" cy="-30" r="25" fill="gold" opacity="0.8"/>
+      <!-- Head -->
+      <circle cx="0" cy="-30" r="15" fill="#f4d03f"/>
+      <!-- Body (green mantle) -->
+      <ellipse cx="0" cy="10" rx="25" ry="35" fill="#27ae60"/>
+      <!-- Arms holding baby -->
+      <ellipse cx="-15" cy="0" rx="8" ry="20" fill="#27ae60" transform="rotate(-30)"/>
+      <ellipse cx="15" cy="0" rx="8" ry="20" fill="#27ae60" transform="rotate(30)"/>
+    </g>
+    
+    <!-- Joseph (right) -->
+    <g transform="translate(60, 0)">
+      <!-- Halo -->
+      <circle cx="0" cy="-30" r="25" fill="gold" opacity="0.8"/>
+      <!-- Head -->
+      <circle cx="0" cy="-30" r="15" fill="#d35400"/>
+      <!-- Beard -->
+      <ellipse cx="0" cy="-20" rx="8" ry="5" fill="#8b4513"/>
+      <!-- Body (brown robe) -->
+      <ellipse cx="0" cy="10" rx="25" ry="35" fill="#8b4513"/>
+      <!-- Arms embracing -->
+      <ellipse cx="-15" cy="0" rx="8" ry="20" fill="#8b4513" transform="rotate(-30)"/>
+      <ellipse cx="15" cy="0" rx="8" ry="20" fill="#8b4513" transform="rotate(30)"/>
+    </g>
+    
+    <!-- Baby Jesus (center) -->
+    <g transform="translate(0, 20)">
+      <!-- Halo -->
+      <circle cx="0" cy="-20" r="15" fill="gold" opacity="0.8"/>
+      <!-- Head -->
+      <circle cx="0" cy="-20" r="10" fill="#f4d03f"/>
+      <!-- Body (swaddling) -->
+      <ellipse cx="0" cy="5" rx="15" ry="20" fill="#8b4513"/>
+    </g>
+  </g>
+  
+  <!-- Text: "Navidad es Jesús" -->
+  <g transform="translate(200, 250)">
+    <!-- "Navidad" -->
+    <text x="0" y="0" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="normal">
+      Navidad
+    </text>
+    <!-- "es" -->
+    <text x="0" y="25" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="normal">
+      es
+    </text>
+    <!-- "Jesús" -->
+    <text x="0" y="55" text-anchor="middle" fill="#e74c3c" font-family="Arial, sans-serif" font-size="32" font-weight="bold">
+      Jesús
+    </text>
+  </g>
+</svg>

@@ -1,103 +1,182 @@
+'use client';
+
+import { useState } from "react";
 import Image from "next/image";
+import { ActionButton } from "./components/action-button";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [showDonorOptions, setShowDonorOptions] = useState(false);
+  const [showRegistration, setShowRegistration] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [familyCount, setFamilyCount] = useState(1);
+  const [location, setLocation] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const handleDonorClick = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setShowDonorOptions(true);
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  const handleRegisterClick = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setShowRegistration(true);
+      setIsAnimating(false);
+    }, 500);
+  };
+
+  const handleIncrement = () => {
+    setFamilyCount(prev => prev + 1);
+  };
+
+  const handleDecrement = () => {
+    setFamilyCount(prev => Math.max(1, prev - 1));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value) && value >= 1) {
+      setFamilyCount(value);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-8">
+      {/* Main Logo */}
+      <div className="mb-12">
+        <Image
+          src="/holy-family-logo.svg"
+          alt="Navidad es Jesús - Holy Family Logo"
+          width={400}
+          height={300}
+          priority
+          className="w-full max-w-md"
+        />
+      </div>
+
+      {/* Action Buttons */}
+      <div className={`flex flex-col sm:flex-row gap-6 w-full max-w-md transition-all duration-500 ${
+        isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      }`}>
+        {!showDonorOptions && !showRegistration ? (
+          <>
+            <ActionButton variant="success">
+              Quiero ser voluntario
+            </ActionButton>
+            <ActionButton variant="danger" onClick={handleDonorClick}>
+              Quiero ser donante
+            </ActionButton>
+          </>
+        ) : showDonorOptions && !showRegistration ? (
+          <>
+            <div className="flex flex-col items-center gap-2">
+              <ActionButton variant="primary" onClick={handleRegisterClick}>
+                Quiero completar el registro aquí
+              </ActionButton>
+              <span className="text-white text-sm opacity-75">5 min</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <ActionButton variant="secondary">
+                Quiero que me llamen
+              </ActionButton>
+              <span className="text-white text-sm opacity-75">1 día</span>
+            </div>
+          </>
+        ) : (
+          <div className="w-full max-w-md space-y-6">
+            {/* Family Count Section */}
+            <div>
+              <h2 className="text-white text-xl font-bold text-center mb-6">
+                ¿Cuántas familias (cajas) quiero ayudar?
+              </h2>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <button
+                  onClick={handleDecrement}
+                  className="w-12 h-12 bg-red-600 hover:bg-red-700 text-white font-bold text-2xl rounded-lg transition-colors duration-200 shadow-lg flex items-center justify-center"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={familyCount}
+                  onChange={handleInputChange}
+                  min="1"
+                  className="w-20 h-12 bg-white text-black font-bold text-xl text-center rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+                />
+                <button
+                  onClick={handleIncrement}
+                  className="w-12 h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-2xl rounded-lg transition-colors duration-200 shadow-lg flex items-center justify-center"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Location Section */}
+            <div>
+              <h3 className="text-white text-lg font-bold text-center mb-4">
+                ¿Dónde vives?
+              </h3>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => setLocation('este')}
+                  className={`p-4 rounded-lg border-2 transition-colors duration-200 ${
+                    location === 'este' 
+                      ? 'bg-blue-600 border-blue-600 text-white' 
+                      : 'bg-transparent border-white text-white hover:bg-white hover:text-black'
+                  }`}
+                >
+                  Este - Dejar caja en Comunidad
+                </button>
+                <button
+                  onClick={() => setLocation('oeste')}
+                  className={`p-4 rounded-lg border-2 transition-colors duration-200 ${
+                    location === 'oeste' 
+                      ? 'bg-blue-600 border-blue-600 text-white' 
+                      : 'bg-transparent border-white text-white hover:bg-white hover:text-black'
+                  }`}
+                >
+                  Oeste - Dejar caja en Casa de Mariela
+                </button>
+              </div>
+            </div>
+
+            {/* Name Input */}
+            <div>
+              <label htmlFor="name" className="block text-white text-lg font-bold text-center mb-3">
+                Nombre
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Tu nombre completo"
+                className="w-full h-12 bg-white text-black font-medium text-lg px-4 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            {/* Phone Input */}
+            <div>
+              <label htmlFor="phone" className="block text-white text-lg font-bold text-center mb-3">
+                Teléfono
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Tu número de teléfono"
+                className="w-full h-12 bg-white text-black font-medium text-lg px-4 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
